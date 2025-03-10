@@ -1,16 +1,632 @@
-## Hi there 👋
-
-<!--
-**UrbanHnosEC/UrbanHnosEC** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanHnosEC - Tienda Online</title>
+    <style>
+        :root {
+            --primary: #6200ea;
+            --secondary: #ff3d00;
+            --dark: #212121;
+            --light: #f5f5f5;
+            --success: #00c853;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--light);
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/400');
+            height: 400px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #ff5722;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .category-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .category-content {
+            padding: 1.5rem;
+        }
+        
+        .category-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .category-content p {
+            color: #666;
+            margin-bottom: 1rem;
+            min-height: 40px;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        
+        .product-img {
+            height: 180px;
+            width: 100%;
+            object-fit: contain;
+            background-color: #f5f5f5;
+            padding: 1rem;
+        }
+        
+        .product-content {
+            padding: 1rem;
+        }
+        
+        .product-content h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+        
+        .add-to-cart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #5000d0;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .feature {
+            padding: 1.5rem;
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .newsletter {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 3rem 1rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+            color: #bbb;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+        }
+        
+        /* Iconos utilizando elementos HTML para simularlos */
+        .icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: currentColor;
+            -webkit-mask-size: cover;
+            mask-size: cover;
+        }
+        
+        .icon-cart {
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+        }
+        
+        .icon-truck {
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+        }
+        
+        .icon-quality {
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19.77 5.03l1.4 1.4L8.43 19.17l-5.6-5.6 1.4-1.4 4.2 4.2L19.77 5.03m0-2.83L8.43 13.54l-4.2-4.2L0 13.57 8.43 22 24 6.43 19.77 2.2z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19.77 5.03l1.4 1.4L8.43 19.17l-5.6-5.6 1.4-1.4 4.2 4.2L19.77 5.03m0-2.83L8.43 13.54l-4.2-4.2L0 13.57 8.43 22 24 6.43 19.77 2.2z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+        }
+        
+        .icon-support {
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1C5.93 1 1 5.93 1 12h2c0-4.97 4.03-9 9-9s9 4.03 9 9h2c0-6.07-4.93-11-11-11zm0 18c-3.87 0-7-3.13-7-7 0-3.87 3.13-7 7-7s7 3.13 7 7c0 3.87-3.13 7-7 7zm0-2c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-1-5c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1zm0-3h2v2h-2z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1C5.93 1 1 5.93 1 12h2c0-4.97 4.03-9 9-9s9 4.03 9 9h2c0-6.07-4.93-11-11-11zm0 18c-3.87 0-7-3.13-7-7 0-3.87 3.13-7 7-7s7 3.13 7 7c0 3.87-3.13 7-7 7zm0-2c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-1-5c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1zm0-3h2v2h-2z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">UrbanHnosEC</a>
+            <nav class="nav-links">
+                <a href="#">Inicio</a>
+                <a href="#categories">Categorías</a>
+                <a href="#products">Productos</a>
+                <a href="#">Sobre Nosotros</a>
+                <a href="#">Contacto</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Arte y Estilo en un Solo Lugar</h1>
+            <p>Descubre nuestra colección única de retratos de anime, dibujos Disney, carteras, ropa y más.</p>
+            <a href="#products" class="btn">Comprar Ahora</a>
+        </div>
+    </section>
+    
+    <div class="container">
+        <section id="categories">
+            <h2 class="section-title">Nuestras Categorías</h2>
+            <div class="categories">
+                <div class="category-card">
+                    <img src="/api/placeholder/400/300" alt="Arte Anime" class="category-img">
+                    <div class="category-content">
+                        <h3>Retratos Anime</h3>
+                        <p>Retratos personalizados en estilo anime de tus personajes favoritos.</p>
+                        <a href="#" class="btn">Ver Colección</a>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="/api/placeholder/400/300" alt="Dibujos Disney" class="category-img">
+                    <div class="category-content">
+                        <h3>Dibujos Disney en Klinezo</h3>
+                        <p>Dibujos exclusivos de personajes Disney en técnica Klinezo.</p>
+                        <a href="#" class="btn">Ver Colección</a>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="/api/placeholder/400/300" alt="Carteras" class="category-img">
+                    <div class="category-content">
+                        <h3>Carteras</h3>
+                        <p>Elegantes carteras para hombre y mujer con diseños exclusivos.</p>
+                        <a href="#" class="btn">Ver Colección</a>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="/api/placeholder/400/300" alt="Ropa y Accesorios" class="category-img">
+                    <div class="category-content">
+                        <h3>Ropa y Accesorios</h3>
+                        <p>Descubre nuestra colección de moda y accesorios urbanos.</p>
+                        <a href="#" class="btn">Ver Colección</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="products">
+            <h2 class="section-title">Productos Destacados</h2>
+            <div class="products">
+                <div class="product-card">
+                    <span class="discount-badge">-15%</span>
+                    <img src="/api/placeholder/300/300" alt="Retrato Anime" class="product-img">
+                    <div class="product-content">
+                        <h3>Retrato Anime Personalizado</h3>
+                        <div class="product-meta">
+                            <span class="product-price">$25.50 <span class="old-price">$30</span></span>
+                        </div>
+                        <button class="add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="/api/placeholder/300/300" alt="Dibujo Mickey Mouse" class="product-img">
+                    <div class="product-content">
+                        <h3>Mickey Mouse en Klinezo</h3>
+                        <div class="product-meta">
+                            <span class="product-price">$35.00</span>
+                        </div>
+                        <button class="add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <span class="discount-badge">-20%</span>
+                    <img src="/api/placeholder/300/300" alt="Cartera Hombre" class="product-img">
+                    <div class="product-content">
+                        <h3>Cartera Hombre Premium</h3>
+                        <div class="product-meta">
+                            <span class="product-price">$28.00 <span class="old-price">$35</span></span>
+                        </div>
+                        <button class="add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="/api/placeholder/300/300" alt="Cartera Mujer" class="product-img">
+                    <div class="product-content">
+                        <h3>Cartera Mujer Elegante</h3>
+                        <div class="product-meta">
+                            <span class="product-price">$32.50</span>
+                        </div>
+                        <button class="add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <span class="discount-badge">-10%</span>
+                    <img src="/api/placeholder/300/300" alt="Camiseta Anime" class="product-img">
+                    <div class="product-content">
+                        <h3>Camiseta Anime Exclusiva</h3>
+                        <div class="product-meta">
+                            <span class="product-price">$18.00 <span class="old-price">$20</span></span>
+                        </div>
+                        <button class="add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="/api/placeholder/300/300" alt="Reloj Casual" class="product-img">
+                    <div class="product-content">
+                        <h3>Reloj Casual Moderno</h3>
+                        <div class="product-meta">
+                            <span class="product-price">$45.00</span>
+                        </div>
+                        <button class="add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="/api/placeholder/300/300" alt="Zapatos Urban" class="product-img">
+                    <div class="product-content">
+                        <h3>Zapatos Urban Style</h3>
+                        <div class="product-meta">
+                            <span class="product-price">$65.00</span>
+                        </div>
+                        <button class="add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <span class="discount-badge">-25%</span>
+                    <img src="/api/placeholder/300/300" alt="Set Disney" class="product-img">
+                    <div class="product-content">
+                        <h3>Set 3 Dibujos Disney</h3>
+                        <div class="product-meta">
+                            <span class="product-price">$75.00 <span class="old-price">$100</span></span>
+                        </div>
+                        <button class="add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2 class="section-title">¿Por qué Elegirnos?</h2>
+            <div class="features">
+                <div class="feature">
+                    <span class="icon icon-quality"></span>
+                    <h3>Calidad Garantizada</h3>
+                    <p>Todos nuestros productos son de la más alta calidad y con garantía.</p>
+                </div>
+                
+                <div class="feature">
+                    <span class="icon icon-truck"></span>
+                    <h3>Envío a Todo Ecuador</h3>
+                    <p>Hacemos envíos a todas las provincias de Ecuador de forma rápida y segura.</p>
+                </div>
+                
+                <div class="feature">
+                    <span class="icon icon-cart"></span>
+                    <h3>Compra Segura</h3>
+                    <p>Utilizamos métodos de pago seguros para tu tranquilidad.</p>
+                </div>
+                
+                <div class="feature">
+                    <span class="icon icon-support"></span>
+                    <h3>Atención Personalizada</h3>
+                    <p>Nuestro equipo está disponible para atenderte y resolver tus dudas.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <section class="newsletter">
+        <div class="container">
+            <h2>Suscríbete a Nuestro Newsletter</h2>
+            <p>Recibe las últimas novedades, ofertas exclusivas y descuentos especiales.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Tu correo electrónico" required>
+                <button type="submit" class="btn">Suscribirse</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>UrbanHnosEC</h3>
+                <p>Tu tienda de confianza para arte, moda y accesorios exclusivos en Ecuador.</p>
+                <div class="social-links">
+                    <a href="#">FB</a>
+                    <a href="#">IG</a>
+                    <a href="#">TW</a>
+                    <a href="#">YT</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Categorías</h3>
+                <ul>
+                    <li><a href="#">Retratos Anime</a></li>
+                    <li><a href="#">Dibujos Disney</a></li>
+                    <li><a href="#">Carteras</a></li>
+                    <li><a href="#">Ropa</a></li>
+                    <li><a href="#">Zapatos</a></li>
+                    <li><a href="#">Relojes</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Información</h3>
+                <ul>
+                    <li><a href="#">
